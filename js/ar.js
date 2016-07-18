@@ -3,7 +3,7 @@ var AugmentedRealityViewer = function(getPOI, options) {
     this.poi = [];
     var maxDistance = 0, here, overlay, ctx;
     this.viewer;
-    var imgsrc = "Spr_6x_002.png";
+    var imgsrc = "pokey.png";
     var imageObj = new Image();
     imageObj.src =imgsrc;
     
@@ -111,7 +111,7 @@ var AugmentedRealityViewer = function(getPOI, options) {
 	    ctx.clearRect(0,0,overlay.width,overlay.height);
 	    for (var i =0 ; i<self.poi.length; i++) {
 		// Based on direction of POI
-		var x = overlay.width / 2 - 100+((360 + alpha - self.poi[i].angle) % 360)*16/9;
+		var x = (overlay.width / 2) +((360 + alpha - self.poi[i].angle) % 360)*16/9;
 
 /*		
 		var y = self.poi[i].y;
