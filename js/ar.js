@@ -3,6 +3,9 @@ var AugmentedRealityViewer = function(getPOI, options) {
     this.poi = [];
     var maxDistance = 0, here, overlay, ctx;
     this.viewer;
+    var imgsrc = "Spr_6x_002.png";
+    var imageObj = new Image();
+    imageObj.src =imgsrc;
     
     this.setViewer = function (element) {
 	this.viewer = element;
@@ -108,8 +111,9 @@ var AugmentedRealityViewer = function(getPOI, options) {
 	    ctx.clearRect(0,0,overlay.width,overlay.height);
 	    for (var i =0 ; i<self.poi.length; i++) {
 		// Based on direction of POI
-		var x = overlay.width / 2 + ((360 + alpha - self.poi[i].angle) % 360)*16/9;
-		
+		var x = overlay.width / 2 - 100+((360 + alpha - self.poi[i].angle) % 360)*16/9;
+
+/*		
 		var y = self.poi[i].y;
 		ctx.beginPath();
 		ctx.moveTo(overlay.width / 2, overlay.height * 1.1);
@@ -119,6 +123,9 @@ var AugmentedRealityViewer = function(getPOI, options) {
 		ctx.fillText(Math.floor(self.poi[i].distance / 100) / 10 + 'km',(overlay.width / 2) + (x - overlay.width) / 2, overlay.height + (y - overlay.height)/2);
 		ctx.font="15px Arial";
 		ctx.fillText(self.poi[i].label,x,y);
+*/		if (self.poi[i].label =="North Pole")
+        ctx.drawImage(imageObj, x, (overlay.height/2));
+
 	    }
 	}
 	animation = requestAnimationFrame(drawPOIInfo);
