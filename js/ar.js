@@ -1,6 +1,8 @@
 var AugmentedRealityViewer = function(getPOI, options) {
     var self = this;
     this.poi = [];
+    var Clicked=false;
+    var yExtra = 0;
     var maxDistance = 0, here, overlay, ctx;
     this.viewer;
     var imgsrc = "pokey.png";
@@ -30,7 +32,13 @@ var AugmentedRealityViewer = function(getPOI, options) {
 	ctx.font="15px Arial";
 	ctx.fillStyle = "white";
 	ctx.strokeStyle = "white";
+	overlay.addEventListener('touchstart',OnClick,false);
     };
+    
+    function OnClick() {
+        Clicked=true;
+    }
+    
 
     var alpha = null,  prevAlpha = null;
 
@@ -90,6 +98,8 @@ var AugmentedRealityViewer = function(getPOI, options) {
 
     this.setOrientation = function (newalpha) {
 	alpha = newalpha;
+	var v = document.getElementsByTagName("outtahere")[0];
+    v.play();
     }
 
     function setPOIy() {
@@ -112,7 +122,10 @@ var AugmentedRealityViewer = function(getPOI, options) {
 	    for (var i =0 ; i<self.poi.length; i++) {
 		// Based on direction of POI
 		var x = (overlay.width / 2) +((360 + alpha - self.poi[i].angle) % 360)*16/9;
-
+        var y = (overlay.height/2) + yExtra;
+        if (Clicked){
+            yExtra -= 20;
+        }
 /*		
 		var y = self.poi[i].y;
 		ctx.beginPath();
@@ -124,7 +137,7 @@ var AugmentedRealityViewer = function(getPOI, options) {
 		ctx.font="15px Arial";
 		ctx.fillText(self.poi[i].label,x,y);
 */		if (self.poi[i].label =="North Pole")
-        ctx.drawImage(imageObj, x, (overlay.height/2));
+        ctx.drawImage(imageObj, x, y);
 
 	    }
 	}
