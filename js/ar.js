@@ -42,11 +42,10 @@ var AugmentedRealityViewer = function(getPOI, options) {
 
     var alpha = null,  prevAlpha = null;
 
-
-    this.addStream = function (stream) {
+this.addStream = function (stream) {
 	var source;
-	if (window.webkitURL) {
-	    source = window.webkitURL.createObjectURL(stream);
+	if (window.URL) {
+	    source = window.URL.createObjectURL(stream);
 	    self.viewer.autoplay = true;
 	} else {
 	    source = stream; 
@@ -56,9 +55,17 @@ var AugmentedRealityViewer = function(getPOI, options) {
 	} else {
 	    self.viewer.src = source;
 	}
-	self.viewer.play();     
-	setPOIy();
+	//self.viewer.play();     
+	//setPOIy();
     };
+
+	
+document.getElementById("camera").addEventListener("click",function() {
+    self.viewer.play(); 
+	setPOIy();
+});
+
+
 
     function distance(pos1, pos2) {
 	function toRad(n) {
@@ -99,7 +106,7 @@ var AugmentedRealityViewer = function(getPOI, options) {
     this.setOrientation = function (newalpha) {
 	alpha = newalpha;
 	var v = document.getElementsByTagName("outtahere")[0];
-    v.play();
+    //v.play();
     }
 
     function setPOIy() {
